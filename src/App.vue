@@ -1,28 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    olá, {{chave}}
+    <br />
+    get: {{getChave}}
+    <hr />
+    <template v-if="!!res">
+      <span style="display:block;" v-for="item of res" :key="item.id">{{item.email}}</span>
+    </template>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: {},
+  computed: {
+    ...mapState(['chave', 'res']),
+    ...mapGetters(['getChave'])
+  },
+  methods: {
+    ...mapActions(['getRes'])
+  },
+  mounted() {
+    this.getRes()
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
